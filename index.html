@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLOW & GRIND | Editorial Minimalist Lifestyle</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        mono: {
+                            50: '#fafafa',
+                            100: '#f4f4f5',
+                            200: '#e4e4e7',
+                            300: '#d4d4d8',
+                            400: '#a1a1aa',
+                            500: '#71717a',
+                            600: '#52525b',
+                            700: '#3f3f46',
+                            800: '#27272a',
+                            900: '#18181b',
+                            950: '#09090b',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    letterSpacing: {
+                        tightest: '-0.05em',
+                        widest2: '0.25em',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.25s ease, color 0.25s ease;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #a1a1aa;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #3f3f46;
+        }
+    </style>
+</head>
+<body class="bg-mono-50 text-mono-950 dark:bg-mono-950 dark:text-mono-50 transition-colors duration-300 antialiased min-h-screen flex flex-col selection:bg-mono-950 selection:text-mono-50 dark:selection:bg-mono-50 dark:selection:text-mono-950">
+
+    <!-- NAVIGATION HEADER -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-mono-50/90 dark:bg-mono-950/90 border-b border-mono-200 dark:border-mono-800 transition-colors">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <span class="w-8 h-8 rounded-none border-2 border-mono-950 dark:border-mono-50 flex items-center justify-center font-black text-xs tracking-tighter group-hover:bg-mono-950 group-hover:text-mono-50 dark:group-hover:bg-mono-50 dark:group-hover:text-mono-950 transition-all">
+                        GG
+                    </span>
+                    <span class="font-black text-xl tracking-widest uppercase text-mono-950 dark:text-mono-50">
+                        GLOW<span class="font-light text-mono-400 dark:text-mono-600">&</span>GRIND
+                    </span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center space-x-8 text-xs font-semibold tracking-widest uppercase text-mono-600 dark:text-mono-400">
+                    <a href="#inicio" class="hover:text-mono-950 dark:hover:text-mono-50 transition-colors">Inicio</a>
+                    <a href="#pilares" class="hover:text-mono-950 dark:hover:text-mono-50 transition-colors">Pilares</a>
+                    <a href="#habit-tracker" class="hover:text-mono-950 dark:hover:text-mono-50 transition-colors">Reto Diario</a>
+                    <a href="#blog" class="hover:text-mono-950 dark:hover:text-mono-50 transition-colors">Artículos</a>
+                </nav>
+
+                <!-- Action Controls -->
+                <div class="flex items-center gap-4">
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" aria-label="Cambiar Modo" class="w-10 h-10 rounded-full border border-mono-200 dark:border-mono-800 flex items-center justify-center text-mono-700 dark:text-mono-300 hover:border-mono-950 dark:hover:border-mono-50 transition-colors focus:outline-none">
+                        <i id="theme-toggle-dark-icon" class="fas fa-moon text-sm hidden"></i>
+                        <i id="theme-toggle-light-icon" class="fas fa-sun text-sm hidden"></i>
+                    </button>
+
+                    <!-- CTA Link -->
+                    <a href="#habit-tracker" class="hidden sm:inline-flex items-center px-5 py-2.5 text-xs font-bold tracking-widest uppercase border border-mono-950 dark:border-mono-50 bg-mono-950 text-mono-50 dark:bg-mono-50 dark:text-mono-950 hover:bg-transparent hover:text-mono-950 dark:hover:bg-transparent dark:hover:text-mono-50 transition-all">
+                        Empezar Reto
+                    </a>
+
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-btn" aria-label="Menú Móvil" class="md:hidden p-2 text-mono-950 dark:text-mono-50 focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Container -->
+        <div id="mobile-menu" class="hidden md:hidden border-b border-mono-200 dark:border-mono-800 bg-mono-50 dark:bg-mono-950 px-6 py-6 space-y-4 text-xs font-semibold tracking-widest uppercase">
+            <a href="#inicio" class="mobile-link block text-mono-700 dark:text-mono-300 hover:text-mono-950 dark:hover:text-mono-50">Inicio</a>
+            <a href="#pilares" class="mobile-link block text-mono-700 dark:text-mono-300 hover:text-mono-950 dark:hover:text-mono-50">Pilares</a>
+            <a href="#habit-tracker" class="mobile-link block text-mono-700 dark:text-mono-300 hover:text-mono-950 dark:hover:text-mono-50">Reto Diario</a>
+            <a href="#blog" class="mobile-link block text-mono-700 dark:text-mono-300 hover:text-mono-950 dark:hover:text-mono-50">Artículos</a>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- HERO SECTION -->
+    <section id="inicio" class="pt-12 sm:pt-20 pb-24 border-b border-mono-200 dark:border-mono-800">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Text Content -->
+                <div class="lg:col-span-7">
+                    <!-- Category Tag -->
+                    <div class="inline-block text-xs font-mono tracking-widest uppercase text-mono-500 dark:text-mono-400 mb-6 border-b border-mono-300 dark:border-mono-700 pb-1">
+                        / VOL. 01 — JUVENTUD & TIEMPO DE ORO
+                    </div>
+
+                    <!-- Editorial Headline -->
+                    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-mono-950 dark:text-mono-50 leading-none mb-8 uppercase">
+                        El tiempo <br class="hidden sm:inline">es tu mayor <span class="italic font-light text-mono-500 dark:text-mono-400">activo.</span>
+                    </h1>
+
+                    <!-- Paragraph -->
+                    <p class="text-base sm:text-lg text-mono-600 dark:text-mono-400 font-normal leading-relaxed max-w-2xl mb-10">
+                        Construye una disciplina inquebrantable, optimiza cada hora de tu día, potencia tu cuerpo mediante el deporte y refleja tu mentalidad a través de hábitos sólidos y estilo personal.
+                    </p>
+
+                    <!-- CTA Group -->
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+                        <a href="#pilares" class="px-8 py-4 text-xs font-bold tracking-widest uppercase border border-mono-950 dark:border-mono-50 bg-mono-950 text-mono-50 dark:bg-mono-50 dark:text-mono-950 hover:bg-transparent hover:text-mono-950 dark:hover:bg-transparent dark:hover:text-mono-50 transition-all text-center">
+                            Explorar Manifiesto
+                        </a>
+                        <a href="#habit-tracker" class="px-8 py-4 text-xs font-bold tracking-widest uppercase border border-mono-300 dark:border-mono-700 text-mono-950 dark:text-mono-50 hover:border-mono-950 dark:hover:border-mono-50 transition-all text-center">
+                            Ver Tracker Diario
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Image Showcase -->
+                <div class="lg:col-span-5">
+                    <div class="relative border border-mono-950 dark:border-mono-50 p-3 bg-mono-50 dark:bg-mono-950 shadow-2xl overflow-hidden group">
+                        <div class="overflow-hidden aspect-[4/5] bg-mono-200 dark:bg-mono-800">
+                            <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1200&q=80" 
+                                 alt="Glow & Grind Hero Fashion Lifestyle" 
+                                 class="w-full h-full object-cover filter grayscale contrast-125 group-hover:scale-105 group-hover:contrast-150 transition-all duration-700 ease-out"
+                                 loading="eager"
+                                 onerror="this.src='https://placehold.co/800x1000/18181b/ffffff?text=GLOW+%26+GRIND';">
+                        </div>
+                        <div class="mt-3 flex justify-between items-center text-[10px] font-mono text-mono-500 uppercase tracking-widest">
+                            <span>FIG. 01 / ACTITUDE & MINIMALISMO</span>
+                            <span>© 2026 EDITION</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Minimalist Grid Metrics -->
+            <div class="mt-20 grid grid-cols-2 lg:grid-cols-4 border-t border-l border-mono-200 dark:border-mono-800">
+                <div class="p-6 border-r border-b border-mono-200 dark:border-mono-800">
+                    <span class="text-xs font-mono text-mono-400">01 / RECURSO</span>
+                    <div class="text-xl sm:text-2xl font-bold uppercase mt-2">Tiempo</div>
+                    <p class="text-xs text-mono-500 dark:text-mono-400 mt-1">Irremplazable e inestimable.</p>
+                </div>
+                <div class="p-6 border-r border-b border-mono-200 dark:border-mono-800">
+                    <span class="text-xs font-mono text-mono-400">02 / MOTOR</span>
+                    <div class="text-xl sm:text-2xl font-bold uppercase mt-2">Deporte</div>
+                    <p class="text-xs text-mono-500 dark:text-mono-400 mt-1">Claridad y fortaleza física.</p>
+                </div>
+                <div class="p-6 border-r border-b border-mono-200 dark:border-mono-800">
+                    <span class="text-xs font-mono text-mono-400">03 / BASE</span>
+                    <div class="text-xl sm:text-2xl font-bold uppercase mt-2">Hábitos</div>
+                    <p class="text-xs text-mono-500 dark:text-mono-400 mt-1">Sistemas de rendimiento.</p>
+                </div>
+                <div class="p-6 border-r border-b border-mono-200 dark:border-mono-800">
+                    <span class="text-xs font-mono text-mono-400">04 / FIRMA</span>
+                    <div class="text-xl sm:text-2xl font-bold uppercase mt-2">Estilo</div>
+                    <p class="text-xs text-mono-500 dark:text-mono-400 mt-1">Identidad visual propia.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LOS 4 PILARES DEL ESTILO DE VIDA -->
+    <section id="pilares" class="py-24 border-b border-mono-200 dark:border-mono-800">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-6 border-b border-mono-200 dark:border-mono-800">
+                <div>
+                    <span class="text-xs font-mono tracking-widest text-mono-500 dark:text-mono-400 uppercase">/ ESTRUCTURA CORE</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight uppercase mt-2">Los 4 Pilares</h2>
+                </div>
+                <p class="text-xs text-mono-500 dark:text-mono-400 max-w-md mt-4 md:mt-0 font-mono">
+                    Estrategias esenciales diseñadas para elevar la calidad de vida, productividad y enfoque estético.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-l border-mono-200 dark:border-mono-800">
+                <!-- Pillar Item 01 -->
+                <div class="p-6 border-r border-b border-mono-200 dark:border-mono-800 flex flex-col justify-between hover:bg-mono-100/50 dark:hover:bg-mono-900/50 transition-colors group">
+                    <div>
+                        <div class="overflow-hidden aspect-[4/3] bg-mono-200 dark:bg-mono-800 mb-6 border border-mono-200 dark:border-mono-800">
+                            <img src="https://images.unsplash.com/photo-1508962914676-134849a727f0?auto=format&fit=crop&w=800&q=80" 
+                                 alt="Tiempo y Mentalidad Minimalista" 
+                                 class="w-full h-full object-cover filter grayscale contrast-125 group-hover:scale-105 transition-all duration-500"
+                                 onerror="this.src='https://placehold.co/600x450/18181b/ffffff?text=TIEMPO';">
+                        </div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="font-mono text-xs text-mono-400">/ 01</span>
+                            <i class="fas fa-hourglass-start text-mono-400 group-hover:text-mono-950 dark:group-hover:text-mono-50 transition-colors"></i>
+                        </div>
+                        <h3 class="text-lg font-bold uppercase mb-3">Tiempo & Mentalidad</h3>
+                        <p class="text-xs text-mono-600 dark:text-mono-400 leading-relaxed mb-6">
+                            El tiempo no vuelve. Enfoque estructurado, bloques de trabajo libre de distracciones y erradicación total de la procrastinación.
+                        </p>
+                    </div>
+                    <ul class="text-xs font-mono text-mono-500 dark:text-mono-400 space-y-2 pt-4 border-t border-mono-200 dark:border-mono-800">
+                        <li>• Bloques Pomodoro</li>
+                        <li>• Foco sin pantallas</li>
+                    </ul>
+                </div>
+
+                <!-- Pillar Item 02 -->
+                <div class="p-6 border-r border-b border-mono-200 dark:border-mono-800 flex flex-col justify-between hover:bg-mono-100/50 dark:hover:bg-mono-900/50 transition-colors group">
+                    <div>
+                        <div class="overflow-hidden aspect-[4/3] bg-mono-200 dark:bg-mono-800 mb-6 border border-mono-200 dark:border-mono-800">
+                            <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80" 
+                                 alt="Deporte y Movimiento Minimalista" 
+                                 class="w-full h-full object-cover filter grayscale contrast-125 group-hover:scale-105 transition-all duration-500"
+                                 onerror="this.src='https://placehold.co/600x450/18181b/ffffff?text=DEPORTE';">
+                        </div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="font-mono text-xs text-mono-400">/ 02</span>
+                            <i class="fas fa-running text-mono-400 group-hover:text-mono-950 dark:group-hover:text-mono-50 transition-colors"></i>
+                        </div>
+                        <h3 class="text-lg font-bold uppercase mb-3">Cuerpo & Deporte</h3>
+                        <p class="text-xs text-mono-600 dark:text-mono-400 leading-relaxed mb-6">
+                            La disciplina física construye agilidad mental. El ejercicio diario reduce el estrés y fortalece la confianza personal.
+                        </p>
+                    </div>
+                    <ul class="text-xs font-mono text-mono-500 dark:text-mono-400 space-y-2 pt-4 border-t border-mono-200 dark:border-mono-800">
+                        <li>• Entrenamiento funcional</li>
+                        <li>• Calistenia & Running</li>
+                    </ul>
+                </div>
+
+                <!-- Pillar Item 03 -->
+                <div class="p-6 border-r border-b border-mono-200 dark:border-mono-800 flex flex-col justify-between hover:bg-mono-100/50 dark:hover:bg-mono-900/50 transition-colors group">
+                    <div>
+                        <div class="overflow-hidden aspect-[4/3] bg-mono-200 dark:bg-mono-800 mb-6 border border-mono-200 dark:border-mono-800">
+                            <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80" 
+                                 alt="Hábitos y Glow Minimalista" 
+                                 class="w-full h-full object-cover filter grayscale contrast-125 group-hover:scale-105 transition-all duration-500"
+                                 onerror="this.src='https://placehold.co/600x450/18181b/ffffff?text=HABITOS';">
+                        </div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="font-mono text-xs text-mono-400">/ 03</span>
+                            <i class="fas fa-spa text-mono-400 group-hover:text-mono-950 dark:group-hover:text-mono-50 transition-colors"></i>
+                        </div>
+                        <h3 class="text-lg font-bold uppercase mb-3">Hábitos & Glow</h3>
+                        <p class="text-xs text-mono-600 dark:text-mono-400 leading-relaxed mb-6">
+                            Cuidado integral diario. Rutinas de cuidado facial, hidratación consciente, sueño reparador y orden de espacio.
+                        </p>
+                    </div>
+                    <ul class="text-xs font-mono text-mono-500 dark:text-mono-400 space-y-2 pt-4 border-t border-mono-200 dark:border-mono-800">
+                        <li>• Skincare minimalista</li>
+                        <li>• Higiene del sueño</li>
+                    </ul>
+                </div>
+
+                <!-- Pillar Item 04 -->
+                <div class="p-6 border-r border-b border-mono-200 dark:border-mono-800 flex flex-col justify-between hover:bg-mono-100/50 dark:hover:bg-mono-900/50 transition-colors group">
+                    <div>
+                        <div class="overflow-hidden aspect-[4/3] bg-mono-200 dark:bg-mono-800 mb-6 border border-mono-200 dark:border-mono-800">
+                            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80" 
+                                 alt="Moda y Estilo Minimalista" 
+                                 class="w-full h-full object-cover filter grayscale contrast-125 group-hover:scale-105 transition-all duration-500"
+                                 onerror="this.src='https://placehold.co/600x450/18181b/ffffff?text=ESTILO';">
+                        </div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="font-mono text-xs text-mono-400">/ 04</span>
+                            <i class="fas fa-tshirt text-mono-400 group-hover:text-mono-950 dark:group-hover:text-mono-50 transition-colors"></i>
+                        </div>
+                        <h3 class="text-lg font-bold uppercase mb-3">Estilo & Moda</h3>
+                        <p class="text-xs text-mono-600 dark:text-mono-400 leading-relaxed mb-6">
+                            Estética limpia. Combinación athleisure y streetwear sobrio para proyectar tu identidad de forma minimalista.
+                        </p>
+                    </div>
+                    <ul class="text-xs font-mono text-mono-500 dark:text-mono-400 space-y-2 pt-4 border-t border-mono-200 dark:border-mono-800">
+                        <li>• Armario cápsula</li>
+                        <li>• Athleisure urbano</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HABIT TRACKER INTERACTIVO MINIMALISTA -->
+        <section id="habit-tracker" class="py-24 border-b border-mono-200 dark:border-mono-800 bg-mono-100/40 dark:bg-mono-900/40">
+            <div class="max-w-4xl mx-auto px-6 lg:px-12">
+                <div class="p-8 sm:p-12 border border-mono-950 dark:border-mono-50 bg-mono-50 dark:bg-mono-950 shadow-2xl relative">
+                    <!-- Section Header -->
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-8 border-b border-mono-200 dark:border-mono-800 gap-4 mb-8">
+                        <div>
+                            <span class="text-xs font-mono tracking-widest text-mono-500 dark:text-mono-400 uppercase">/ INTERACTIVE TRACKER</span>
+                            <h2 class="text-2xl sm:text-3xl font-black uppercase mt-1">Reto Diario de Juventud</h2>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="text-right">
+                                <div id="progress-percent" class="text-3xl font-mono font-bold tracking-tight">0%</div>
+                                <div class="text-xs font-mono text-mono-500 uppercase">Completado</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Progress Bar Minimalist -->
+                    <div class="w-full bg-mono-200 dark:bg-mono-800 h-2 mb-8 overflow-hidden">
+                        <div id="habit-progress-bar" class="bg-mono-950 dark:bg-mono-50 h-full w-0 transition-all duration-300"></div>
+                    </div>
+
+                    <!-- Checklist -->
+                    <div class="space-y-3" id="habits-list">
+                        <!-- Habit 1 -->
+                        <label class="flex items-center justify-between p-4 border border-mono-200 dark:border-mono-800 hover:border-mono-950 dark:hover:border-mono-50 cursor-pointer transition-all bg-mono-50 dark:bg-mono-950">
+                            <div class="flex items-center gap-4">
+                                <input type="checkbox" class="habit-checkbox w-4 h-4 accent-mono-950 dark:accent-mono-50 rounded-none cursor-pointer">
+                                <div>
+                                    <span class="text-xs sm:text-sm font-bold uppercase tracking-wider block">30 min de Movimiento o Deporte</span>
+                                    <span class="text-xs text-mono-500 font-mono">Gimnasio, calistenia, running o movilidad activa.</span>
+                                </div>
+                            </div>
+                            <span class="text-xs font-mono text-mono-400">+20%</span>
+                        </label>
+
+                        <!-- Habit 2 -->
+                        <label class="flex items-center justify-between p-4 border border-mono-200 dark:border-mono-800 hover:border-mono-950 dark:hover:border-mono-50 cursor-pointer transition-all bg-mono-50 dark:bg-mono-950">
+                            <div class="flex items-center gap-4">
+                                <input type="checkbox" class="habit-checkbox w-4 h-4 accent-mono-950 dark:accent-mono-50 rounded-none cursor-pointer">
+                                <div>
+                                    <span class="text-xs sm:text-sm font-bold uppercase tracking-wider block">Cuidado Facial e Hidratación (2L)</span>
+                                    <span class="text-xs text-mono-500 font-mono">Limpieza básica, crema hidratante y protector solar.</span>
+                                </div>
+                            </div>
+                            <span class="text-xs font-mono text-mono-400">+20%</span>
+                        </label>
+
+                        <!-- Habit 3 -->
+                        <label class="flex items-center justify-between p-4 border border-mono-200 dark:border-mono-800 hover:border-mono-950 dark:hover:border-mono-50 cursor-pointer transition-all bg-mono-50 dark:bg-mono-950">
+                            <div class="flex items-center gap-4">
+                                <input type="checkbox" class="habit-checkbox w-4 h-4 accent-mono-950 dark:accent-mono-50 rounded-none cursor-pointer">
+                                <div>
+                                    <span class="text-xs sm:text-sm font-bold uppercase tracking-wider block">1 Hora de Desconexión Digital</span>
+                                    <span class="text-xs text-mono-500 font-mono">Cero pantallas o redes sociales previo a descansar.</span>
+                                </div>
+                            </div>
+                            <span class="text-xs font-mono text-mono-400">+20%</span>
+                        </label>
+
+                        <!-- Habit 4 -->
+                        <label class="flex items-center justify-between p-4 border border-mono-200 dark:border-mono-800 hover:border-mono-950 dark:hover:border-mono-50 cursor-pointer transition-all bg-mono-50 dark:bg-mono-950">
+                            <div class="flex items-center gap-4">
+                                <input type="checkbox" class="habit-checkbox w-4 h-4 accent-mono-950 dark:accent-mono-50 rounded-none cursor-pointer">
+                                <div>
+                                    <span class="text-xs sm:text-sm font-bold uppercase tracking-wider block">Lectura o Estudio Enfocado (20 min)</span>
+                                    <span class="text-xs text-mono-500 font-mono">Desarrollo personal, lectura de alto valor o pódcast.</span>
+                                </div>
+                            </div>
+                            <span class="text-xs font-mono text-mono-400">+20%</span>
+                        </label>
+
+                        <!-- Habit 5 -->
+                        <label class="flex items-center justify-between p-4 border border-mono-200 dark:border-mono-800 hover:border-mono-950 dark:hover:border-mono-50 cursor-pointer transition-all bg-mono-50 dark:bg-mono-950">
+                            <div class="flex items-center gap-4">
+                                <input type="checkbox" class="habit-checkbox w-4 h-4 accent-mono-950 dark:accent-mono-50 rounded-none cursor-pointer">
+                                <div>
+                                    <span class="text-xs sm:text-sm font-bold uppercase tracking-wider block">Organización de Outfit & Tareas de Mañana</span>
+                                    <span class="text-xs text-mono-500 font-mono">Planificación previa para evitar la fatiga de decisión.</span>
+                                </div>
+                            </div>
+                            <span class="text-xs font-mono text-mono-400">+20%</span>
+                        </label>
+                    </div>
+
+                    <!-- Motivational Banner Message -->
+                    <div id="motivational-msg" class="mt-8 p-4 border border-mono-950 dark:border-mono-50 bg-mono-950 text-mono-50 dark:bg-mono-50 dark:text-mono-950 font-mono text-xs uppercase tracking-wider text-center hidden">
+                        [✓ RETO COMPLETADO] Has maximizado el valor de tu tiempo hoy. Mantén la constancia.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ARTÍCULOS EDITORIALES / BLOG -->
+        <section id="blog" class="py-24 border-b border-mono-200 dark:border-mono-800">
+            <div class="max-w-7xl mx-auto px-6 lg:px-12">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-6 border-b border-mono-200 dark:border-mono-800">
+                    <div>
+                        <span class="text-xs font-mono tracking-widest text-mono-500 dark:text-mono-400 uppercase">/ EDITORIALES</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight uppercase mt-2">Artículos & Lecturas</h2>
+                    </div>
+                    <span class="text-xs font-mono text-mono-400 mt-4 md:mt-0">EDICIÓN 01 / LIFESTYLE</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 border-t border-l border-mono-200 dark:border-mono-800">
+                    <!-- Article Card 1 -->
+                    <article class="p-6 border-r border-b border-mono-200 dark:border-mono-800 flex flex-col justify-between hover:bg-mono-100/50 dark:hover:bg-mono-900/50 transition-colors group">
+                        <div>
+                            <div class="overflow-hidden aspect-[16/10] bg-mono-200 dark:bg-mono-800 mb-6 border border-mono-200 dark:border-mono-800">
+                                <img src="https://images.unsplash.com/photo-1501139083538-0139583c060f?auto=format&fit=crop&w=800&q=80" 
+                                     alt="Gestion del Tiempo" 
+                                     class="w-full h-full object-cover filter grayscale contrast-125 group-hover:scale-105 transition-all duration-500"
+                                     onerror="this.src='https://placehold.co/600x400/18181b/ffffff?text=PRODUCTIVIDAD';">
+                            </div>
+                            <div class="flex items-center justify-between font-mono text-xs text-mono-400 mb-4">
+                                <span>/ PRODUCTIVIDAD</span>
+                                <span>5 MIN</span>
+                            </div>
+                            <h3 class="text-xl font-bold uppercase leading-snug mb-4">
+                                ¿Por qué el tiempo vuela? 5 claves para adueñarte de tus tardes.
+                            </h3>
+                            <p class="text-xs text-mono-600 dark:text-mono-400 leading-relaxed mb-6">
+                                Elimina la dispersión digital. La gestión estructurada del tiempo te da libertad real para hacer lo que te apasiona.
+                            </p>
+                        </div>
+                        <button onclick="openModal('¿Por qué el tiempo vuela?', 'Estructurar tus horas libres no significa volverse rígido, sino libre. Divide tus tardes en bloques de 45 minutos de enfoque profundo sin notificaciones en tu teléfono. Define siempre una prioridad principal para cada día y reserva un espacio de 30 minutos para tu entrenamiento físico sin excusas.')" class="w-full py-3 text-xs font-mono font-bold uppercase tracking-widest border border-mono-950 dark:border-mono-50 text-mono-950 dark:text-mono-50 hover:bg-mono-950 hover:text-mono-50 dark:hover:bg-mono-50 dark:hover:text-mono-950 transition-all text-center">
+                            Leer Artículo
+                        </button>
+                    </article>
+
+                    <!-- Article Card 2 -->
+                    <article class="p-6 border-r border-b border-mono-200 dark:border-mono-800 flex flex-col justify-between hover:bg-mono-100/50 dark:hover:bg-mono-900/50 transition-colors group">
+                        <div>
+                            <div class="overflow-hidden aspect-[16/10] bg-mono-200 dark:bg-mono-800 mb-6 border border-mono-200 dark:border-mono-800">
+                                <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80" 
+                                     alt="Skincare y Cuidado Personal" 
+                                     class="w-full h-full object-cover filter grayscale contrast-125 group-hover:scale-105 transition-all duration-500"
+                                     onerror="this.src='https://placehold.co/600x400/18181b/ffffff?text=SKINCARE';">
+                            </div>
+                            <div class="flex items-center justify-between font-mono text-xs text-mono-400 mb-4">
+                                <span>/ SKINCARE</span>
+                                <span>3 MIN</span>
+                            </div>
+                            <h3 class="text-xl font-bold uppercase leading-snug mb-4">
+                                Skincare Esencial: 3 pasos fundamentales para tu piel.
+                            </h3>
+                            <p class="text-xs text-mono-600 dark:text-mono-400 leading-relaxed mb-6">
+                                La elegancia está en lo simple. Rutina diaria rápida pero efectiva para mantener una piel sana y fresca.
+                            </p>
+                        </div>
+                        <button onclick="openModal('Skincare Esencial', 'Menos es más. Un cuidado facial efectivo se resume en tres pilares: Limpiador facial suave cada mañana y noche para retirar impurezas; Crema hidratante adaptada a tu tipo de piel; Protector solar SPF 50+ todos los días como mejor método antienvejecimiento.')" class="w-full py-3 text-xs font-mono font-bold uppercase tracking-widest border border-mono-950 dark:border-mono-50 text-mono-950 dark:text-mono-50 hover:bg-mono-950 hover:text-mono-50 dark:hover:bg-mono-50 dark:hover:text-mono-950 transition-all text-center">
+                            Leer Artículo
+                        </button>
+                    </article>
+
+                    <!-- Article Card 3 -->
+                    <article class="p-6 border-r border-b border-mono-200 dark:border-mono-800 flex flex-col justify-between hover:bg-mono-100/50 dark:hover:bg-mono-900/50 transition-colors group">
+                        <div>
+                            <div class="overflow-hidden aspect-[16/10] bg-mono-200 dark:bg-mono-800 mb-6 border border-mono-200 dark:border-mono-800">
+                                <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80" 
+                                     alt="Estilo y Athleisure Urbana" 
+                                     class="w-full h-full object-cover filter grayscale contrast-125 group-hover:scale-105 transition-all duration-500"
+                                     onerror="this.src='https://placehold.co/600x400/18181b/ffffff?text=ESTILO';">
+                            </div>
+                            <div class="flex items-center justify-between font-mono text-xs text-mono-400 mb-4">
+                                <span>/ ESTILO</span>
+                                <span>4 MIN</span>
+                            </div>
+                            <h3 class="text-xl font-bold uppercase leading-snug mb-4">
+                                Athleisure Minimalista: Funcionalidad y elegancia urbana.
+                            </h3>
+                            <p class="text-xs text-mono-600 dark:text-mono-400 leading-relaxed mb-6">
+                                Cómo vestir con comodidad sin perder la estética limpia. Piezas neutras y versátiles para el día a día.
+                            </p>
+                        </div>
+                        <button onclick="openModal('Athleisure Minimalista', 'El estilo athleisure se basa en la versatilidad de prendas deportivas integradas al guardarropa urbano. Opta por una paleta de tonos neutros (negro, gris, blanco, beige), hoodies de corte estructurado y calzado impecable. Tu ropa debe adaptarse a tu ritmo activo.')" class="w-full py-3 text-xs font-mono font-bold uppercase tracking-widest border border-mono-950 dark:border-mono-50 text-mono-950 dark:text-mono-50 hover:bg-mono-950 hover:text-mono-50 dark:hover:bg-mono-50 dark:hover:text-mono-950 transition-all text-center">
+                            Leer Artículo
+                        </button>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEWSLETTER SECTION -->
+        <section class="py-24">
+            <div class="max-w-4xl mx-auto px-6 lg:px-12 text-center">
+                <span class="text-xs font-mono tracking-widest text-mono-500 dark:text-mono-400 uppercase mb-3 block">/ BOLETÍN SEMANAL</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold uppercase mb-4">Únete a la Comunidad</h2>
+                <p class="text-xs sm:text-sm text-mono-600 dark:text-mono-400 max-w-xl mx-auto mb-8">
+                    Recibe cada semana ensayos sobre productividad, rutinas deportivas, guías de estilo y consejos para aprovechar tu tiempo.
+                </p>
+
+                <form id="newsletter-form" onsubmit="handleNewsletter(event)" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                    <input type="email" id="newsletter-email" required placeholder="Tu correo electrónico..." class="flex-grow px-4 py-3 border border-mono-300 dark:border-mono-700 bg-transparent text-xs text-mono-950 dark:text-mono-50 placeholder-mono-400 focus:outline-none focus:border-mono-950 dark:focus:border-mono-50">
+                    <button type="submit" class="px-6 py-3 text-xs font-mono font-bold uppercase tracking-widest border border-mono-950 dark:border-mono-50 bg-mono-950 text-mono-50 dark:bg-mono-50 dark:text-mono-950 hover:bg-transparent hover:text-mono-950 dark:hover:bg-transparent dark:hover:text-mono-50 transition-all">
+                        Suscribirse
+                    </button>
+                </form>
+                <div id="newsletter-msg" class="text-xs font-mono text-mono-500 dark:text-mono-400 mt-4 hidden">[✓ TE HAS SUSCRITO CON ÉXITO]</div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-mono-200 dark:border-mono-800 bg-mono-100/50 dark:bg-mono-950 text-mono-600 dark:text-mono-400">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 py-12">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-mono-200 dark:border-mono-800">
+                <div class="flex items-center gap-3">
+                    <span class="w-6 h-6 border border-mono-950 dark:border-mono-50 font-black text-xs flex items-center justify-center">GG</span>
+                    <span class="font-bold text-sm tracking-widest text-mono-950 dark:text-mono-50 uppercase">GLOW & GRIND</span>
+                </div>
+                <div class="flex gap-8 text-xs font-mono uppercase">
+                    <a href="#inicio" class="hover:text-mono-950 dark:hover:text-mono-50 transition-colors">Inicio</a>
+                    <a href="#pilares" class="hover:text-mono-950 dark:hover:text-mono-50 transition-colors">Pilares</a>
+                    <a href="#habit-tracker" class="hover:text-mono-950 dark:hover:text-mono-50 transition-colors">Tracker</a>
+                    <a href="#blog" class="hover:text-mono-950 dark:hover:text-mono-50 transition-colors">Artículos</a>
+                </div>
+            </div>
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-mono-400 gap-4">
+                <p>© 2026 GLOW & GRIND. Todos los derechos reservados.</p>
+                <p>El tiempo es oro — Vive con propósito.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ARTICLE READER MODAL -->
+    <div id="article-modal" class="fixed inset-0 z-50 bg-mono-950/80 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-mono-50 dark:bg-mono-950 border border-mono-950 dark:border-mono-50 max-w-xl w-full p-8 relative shadow-2xl">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-mono-400 hover:text-mono-950 dark:hover:text-mono-50 text-sm font-mono focus:outline-none">
+                [ESC X]
+            </button>
+            <span class="text-xs font-mono text-mono-400 uppercase tracking-widest mb-2 block">/ LECTURA EDITORIAL</span>
+            <h3 id="modal-title" class="text-2xl font-bold uppercase text-mono-950 dark:text-mono-50 mb-4 pr-8"></h3>
+            <p id="modal-content" class="text-xs sm:text-sm text-mono-600 dark:text-mono-300 leading-relaxed font-sans mb-8 border-t border-b border-mono-200 dark:border-mono-800 py-6"></p>
+            <div class="text-right">
+                <button onclick="closeModal()" class="px-6 py-2.5 text-xs font-mono font-bold uppercase tracking-widest border border-mono-950 dark:border-mono-50 bg-mono-950 text-mono-50 dark:bg-mono-50 dark:text-mono-950 hover:bg-transparent hover:text-mono-950 dark:hover:bg-transparent dark:hover:text-mono-50 transition-all">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- DARK MODE LOGIC ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+        function initTheme() {
+            if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                lightIcon.classList.remove('hidden');
+            } else {
+                document.documentElement.classList.remove('dark');
+                darkIcon.classList.remove('hidden');
+            }
+        }
+        initTheme();
+
+        themeToggleBtn.addEventListener('click', function() {
+            darkIcon.classList.toggle('hidden');
+            lightIcon.classList.toggle('hidden');
+
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+        });
+
+        // --- MOBILE MENU LOGIC ---
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // --- HABIT TRACKER LOGIC ---
+        const checkboxes = document.querySelectorAll('.habit-checkbox');
+        const progressBar = document.getElementById('habit-progress-bar');
+        const progressPercent = document.getElementById('progress-percent');
+        const motivationalMsg = document.getElementById('motivational-msg');
+
+        function updateHabitsProgress() {
+            const total = checkboxes.length;
+            let checkedCount = 0;
+
+            checkboxes.forEach(cb => {
+                if (cb.checked) checkedCount++;
+            });
+
+            const percentage = Math.round((checkedCount / total) * 100);
+            progressBar.style.width = percentage + '%';
+            progressPercent.textContent = percentage + '%';
+
+            if (percentage === 100) {
+                motivationalMsg.classList.remove('hidden');
+            } else {
+                motivationalMsg.classList.add('hidden');
+            }
+        }
+
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', updateHabitsProgress);
+        });
+
+        // --- NEWSLETTER FORM LOGIC ---
+        function handleNewsletter(e) {
+            e.preventDefault();
+            const emailInput = document.getElementById('newsletter-email');
+            const msg = document.getElementById('newsletter-msg');
+            
+            if (emailInput.value) {
+                msg.classList.remove('hidden');
+                emailInput.value = '';
+                setTimeout(() => {
+                    msg.classList.add('hidden');
+                }, 4000);
+            }
+        }
+
+        // --- MODAL LOGIC ---
+        function openModal(title, content) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-content').textContent = content;
+            const modal = document.getElementById('article-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('article-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+    </script>
+</body>
+</html>
